@@ -27,3 +27,10 @@ async def move():
     return {
         "move": "up"
     }
+
+
+@app.post("/end")
+async def end():
+    return {
+        "message": "ending"
+    }
