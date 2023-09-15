@@ -20,3 +20,10 @@ async def start():
     return {
         "message": "starting"
     }
+
+
+@app.post("/move")
+async def move():
+    return {
+        "move": "up"
+    }
