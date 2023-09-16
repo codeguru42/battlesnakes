@@ -1,3 +1,5 @@
+import random
+
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -24,8 +26,9 @@ async def start():
 
 @app.post("/move")
 async def move():
+    moves = ["up", "down", "left", "right"]
     return {
-        "move": "up"
+        "move": random.choice(moves)
     }
 
 
