@@ -9,25 +9,30 @@ class Game(BaseModel):
     source: str
 
 
-class Board(BaseModel):
-    height: int
-    width: int
-    food: list
-    hazards: list
-    snakes: list
+class Position(BaseModel):
+    x: int
+    y: int
 
 
 class Battlesnake(BaseModel):
     id: str
     name: str
     health: int
-    body: list
+    body: list[Position]
     latency: str
-    head: dict
+    head: Position
     length: int
     shout: str
     squad: str
     customizations: dict
+
+
+class Board(BaseModel):
+    height: int
+    width: int
+    food: list[Position]
+    hazards: list[Position]
+    snakes: list[Battlesnake]
 
 
 class Body(BaseModel):
