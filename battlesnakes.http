@@ -1,24 +1,21 @@
 ### /
-GET http://127.0.0.1:8000/
+GET {{host}}/
 Accept: application/json
 
 ### /start
-POST http://127.0.0.1:8000/start
-Accept: application/json
+POST {{host}}/start
 
 {
 }
 
 ### /move
-POST http://127.0.0.1:8000/move
-Accept: application/json
+POST {{host}}/move
 
 {
 }
 
 ### /end
-POST http://127.0.0.1:8000/end
-Accept: application/json
+POST {{host}}/end
 
 {
 }
