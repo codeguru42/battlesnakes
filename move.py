@@ -15,13 +15,15 @@ def min_dist(ps: list[Position], x: Position):
 
 def make_move(state: GameState) -> MoveEnum:
     head = state.you.head
-    body = state.you.body
     food = state.board.food
+    body = state.you.body
+    snakes = state.board.snakes
+    used = set().union(body, *snakes)
     deltas = {m: m.delta() for m in MoveEnum}
     choices = {}
     for m, d in deltas.items():
         new_pos = Position(x=head.x + d.x, y=head.y + d.y)
-        if new_pos not in body:
+        if new_pos not in used:
             choices[m] = new_pos
     md = {m: min_dist(food, c) for m, c in choices.items()}
 
