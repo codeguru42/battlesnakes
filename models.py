@@ -1,9 +1,34 @@
 from pydantic import BaseModel
 
 
+class RoyaleSettings(BaseModel):
+    shrinkEveryNTurns: int
+
+
+class SquadSettings(BaseModel):
+    allowBodyCollisions: bool
+    sharedElimination: bool
+    sharedHealth: bool
+    sharedLength: bool
+
+
+class RulesetSettings(BaseModel):
+    foodSpawnChance: int
+    minimumFood: int
+    hazardDamagePerTurn: int
+    royale: RoyaleSettings
+    squad: SquadSettings
+
+
+class Ruleset(BaseModel):
+    name: str
+    version: str
+    settings: RulesetSettings
+
+
 class Game(BaseModel):
     id: str
-    ruleset: dict
+    ruleset: Ruleset
     map: str
     timeout: int
     source: str
