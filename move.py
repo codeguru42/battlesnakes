@@ -2,12 +2,12 @@ import random
 from enum import StrEnum
 
 
-class Move(StrEnum):
+class MoveEnum(StrEnum):
     UP = 'up'
     DOWN = 'down'
     LEFT = 'left'
     RIGHT = 'right'
 
 
-def make_move() -> Move:
-    return random.choice(list(Move))
+def make_move() -> MoveEnum:
+    return random.choice(list(MoveEnum))

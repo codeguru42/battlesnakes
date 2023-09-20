@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from move import MoveEnum
+
 
 class RoyaleSettings(BaseModel):
     shrinkEveryNTurns: int
@@ -65,3 +67,20 @@ class Body(BaseModel):
     turn: int
     board: Board
     you: Battlesnake
+
+
+class MetaData(BaseModel):
+    apiversion: str
+    author: str
+    color: str
+    head: str
+    tail: str
+    version: str
+
+
+class Move(BaseModel):
+    move: MoveEnum
+
+
+class Message(BaseModel):
+    message: str
