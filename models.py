@@ -1,6 +1,9 @@
 from enum import StrEnum
 
 from pydantic import BaseModel
+from pydantic._internal import _annotated_handlers
+from pydantic.json_schema import JsonSchemaValue
+from pydantic_core import CoreSchema
 
 
 class RoyaleSettings(BaseModel):
@@ -39,6 +42,9 @@ class Game(BaseModel):
 class Position(BaseModel):
     x: int
     y: int
+
+    def __hash__(self) -> int:
+        return hash((self.x, self.y))
 
 
 class Battlesnake(BaseModel):
