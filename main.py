@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from models import Body, Move, MetaData, Message
+from models import GameState, Move, MetaData, Message
 from move import make_move
 
 app = FastAPI()
@@ -24,8 +24,8 @@ async def start() -> Message:
 
 
 @app.post("/move")
-async def move(body: Body) -> Move:
-    print(body)
+async def move(state: GameState) -> Move:
+    print(state)
     return Move(move=make_move())
 
 

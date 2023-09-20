@@ -62,7 +62,7 @@ class Board(BaseModel):
     snakes: list[Battlesnake]
 
 
-class Body(BaseModel):
+class GameState(BaseModel):
     game: Game
     turn: int
     board: Board
