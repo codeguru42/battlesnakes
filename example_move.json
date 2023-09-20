@@ -1,0 +1,110 @@
+{
+  "game": {
+    "id": "e8a20e13-95fa-4111-ab57-677d577b1697",
+    "ruleset": {
+      "name": "standard",
+      "version": "v1.2.3",
+      "settings": {
+        "foodSpawnChance": 15,
+        "minimumFood": 1,
+        "hazardDamagePerTurn": 0,
+        "hazardMap": "",
+        "hazardMapAuthor": "",
+        "royale": {
+          "shrinkEveryNTurns": 0
+        },
+        "squad": {
+          "allowBodyCollisions": false,
+          "sharedElimination": false,
+          "sharedHealth": false,
+          "sharedLength": false
+        }
+      }
+    },
+    "map": "standard",
+    "timeout": 500,
+    "source": "custom"
+  },
+  "turn": 0,
+  "board": {
+    "height": 11,
+    "width": 11,
+    "snakes": [
+      {
+        "id": "gs_cKMmCrRq4JKchDMPdY3QJC4C",
+        "name": "First Battlesnake",
+        "latency": "",
+        "health": 100,
+        "body": [
+          {
+            "x": 5,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          }
+        ],
+        "head": {
+          "x": 5,
+          "y": 1
+        },
+        "length": 3,
+        "shout": "",
+        "squad": "",
+        "customizations": {
+          "color": "#b62b2b",
+          "head": "default",
+          "tail": "default"
+        }
+      }
+    ],
+    "food": [
+      {
+        "x": 4,
+        "y": 0
+      },
+      {
+        "x": 5,
+        "y": 5
+      }
+    ],
+    "hazards": []
+  },
+  "you": {
+    "id": "gs_cKMmCrRq4JKchDMPdY3QJC4C",
+    "name": "First Battlesnake",
+    "latency": "",
+    "health": 100,
+    "body": [
+      {
+        "x": 5,
+        "y": 1
+      },
+      {
+        "x": 5,
+        "y": 1
+      },
+      {
+        "x": 5,
+        "y": 1
+      }
+    ],
+    "head": {
+      "x": 5,
+      "y": 1
+    },
+    "length": 3,
+    "shout": "",
+    "squad": "",
+    "customizations": {
+      "color": "#b62b2b",
+      "head": "default",
+      "tail": "default"
+    }
+  }
+}

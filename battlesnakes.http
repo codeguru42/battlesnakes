@@ -13,8 +13,7 @@ Content-Type: application/json
 POST {{host}}/move
 Content-Type: application/json
 
-{
-}
+< ./example_move.json
 
 ### /end
 POST {{host}}/end
