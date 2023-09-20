@@ -3,7 +3,7 @@ import random
 from models import GameState, MoveEnum, Position
 
 
-def dist(p1, p2):
+def dist(p1: Position, p2: Position) -> int:
     return abs(p1.x - p2.x) + abs(p1.y - p2.y)
 
 
