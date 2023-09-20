@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from enum import StrEnum
 
-from move import MoveEnum
+from pydantic import BaseModel
 
 
 class RoyaleSettings(BaseModel):
@@ -76,6 +76,13 @@ class MetaData(BaseModel):
     head: str
     tail: str
     version: str
+
+
+class MoveEnum(StrEnum):
+    UP = 'up'
+    DOWN = 'down'
+    LEFT = 'left'
+    RIGHT = 'right'
 
 
 class Move(BaseModel):
