@@ -24,9 +24,9 @@ async def start() -> Message:
 
 
 @app.post("/move")
-async def move(state: dict) -> Move:
+async def move(state: GameState) -> Move:
     print(state)
-    return Move(move=make_move())
+    return Move(move=make_move(state))
 
 
 @app.post("/end")

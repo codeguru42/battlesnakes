@@ -84,6 +84,17 @@ class MoveEnum(StrEnum):
     LEFT = "left"
     RIGHT = "right"
 
+    def delta(self):
+        match self:
+            case MoveEnum.UP:
+                return Position(x=0, y=1)
+            case MoveEnum.DOWN:
+                return Position(x=0, y=-1)
+            case MoveEnum.LEFT:
+                return Position(x=-1, y=0)
+            case MoveEnum.RIGHT:
+                return Position(x=1, y=0)
+
 
 class Move(BaseModel):
     move: MoveEnum
