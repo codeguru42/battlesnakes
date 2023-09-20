@@ -15,9 +15,14 @@ def min_dist(ps: list[Position], x: Position):
 
 def make_move(state: GameState) -> MoveEnum:
     head = state.you.head
+    body = state.you.body
     food = state.board.food
     deltas = {m: m.delta() for m in MoveEnum}
-    choices = {m: Position(x=head.x + d.x, y=head.y + d.y) for m, d in deltas.items()}
+    choices = {}
+    for m, d in deltas.items():
+        new_pos = Position(x=head.x + d.x, y=head.y + d.y)
+        if new_pos not in body:
+            choices[m] = new_pos
     md = {m: min_dist(food, c) for m, c in choices.items()}
 
     return min(md.keys(), key=lambda m: md[m])
