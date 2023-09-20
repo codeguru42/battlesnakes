@@ -4,18 +4,21 @@ Accept: application/json
 
 ### /start
 POST {{host}}/start
+Content-Type: application/json
 
 {
 }
 
 ### /move
 POST {{host}}/move
+Content-Type: application/json
 
 {
 }
 
 ### /end
 POST {{host}}/end
+Content-Type: application/json
 
 {
 }
