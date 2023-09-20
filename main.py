@@ -1,8 +1,7 @@
-import random
-
 from fastapi import FastAPI
 
 from models import Body
+from move import make_move
 
 app = FastAPI()
 
@@ -27,8 +26,7 @@ async def start():
 @app.post("/move")
 async def move(body: Body):
     print(body)
-    moves = ["up", "down", "left", "right"]
-    return {"move": random.choice(moves)}
+    return {"move": make_move()}
 
 
 @app.post("/end")
