@@ -79,10 +79,10 @@ class MetaData(BaseModel):
 
 
 class MoveEnum(StrEnum):
-    UP = 'up'
-    DOWN = 'down'
-    LEFT = 'left'
-    RIGHT = 'right'
+    UP = "up"
+    DOWN = "down"
+    LEFT = "left"
+    RIGHT = "right"
 
 
 class Move(BaseModel):
