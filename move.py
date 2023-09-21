@@ -18,7 +18,7 @@ def make_move(state: GameState) -> MoveEnum:
     food = state.board.food
     body = state.you.body
     snakes = state.board.snakes
-    used = set().union(body, *snakes)
+    used = set().union(*body, *snakes)
     deltas = {m: m.delta() for m in MoveEnum}
     choices = {}
     for m, d in deltas.items():
