@@ -16,7 +16,6 @@ def min_dist(ps: list[Position], x: Position):
 def make_move(state: GameState) -> MoveEnum:
     head = state.you.head
     food = state.board.food
-    body = state.you.body
     snakes = state.board.snakes
     used = set().union(*(s.body for s in snakes))
     deltas = {m: m.delta() for m in MoveEnum}
