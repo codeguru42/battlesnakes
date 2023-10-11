@@ -10,13 +10,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
       - name: black
         uses: psf/black@stable
 
       - name: mypy
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
-          poetry env use 3.11
           poetry install
           mypy .
 
