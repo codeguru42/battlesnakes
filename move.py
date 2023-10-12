@@ -27,3 +27,9 @@ def make_move(state: GameState) -> MoveEnum:
     md = {m: min_dist(food, c) for m, c in choices.items()}
 
     return min(md.keys(), key=lambda m: md[m])
+
+
+def evaluate(state: GameState):
+    head = state.you.head
+    food = state.board.food
+    return min_dist(food, head)
