@@ -1,9 +1,15 @@
 from enum import StrEnum
 
 from pydantic import BaseModel
-from pydantic._internal import _annotated_handlers
-from pydantic.json_schema import JsonSchemaValue
-from pydantic_core import CoreSchema
+
+
+class MetaData(BaseModel):
+    apiversion: str
+    author: str
+    color: str
+    head: str
+    tail: str
+    version: str
 
 
 class RoyaleSettings(BaseModel):
@@ -57,7 +63,7 @@ class Battlesnake(BaseModel):
     length: int
     shout: str
     squad: str
-    customizations: dict
+    customizations: MetaData
 
 
 class Board(BaseModel):
@@ -73,15 +79,6 @@ class GameState(BaseModel):
     turn: int
     board: Board
     you: Battlesnake
-
-
-class MetaData(BaseModel):
-    apiversion: str
-    author: str
-    color: str
-    head: str
-    tail: str
-    version: str
 
 
 class MoveEnum(StrEnum):
