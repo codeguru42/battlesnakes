@@ -1,4 +1,4 @@
-from models import GameState, MoveEnum, Position
+from models import GameState, MoveEnum, Position, Battlesnake
 
 
 def dist(p1: Position, p2: Position) -> int:
@@ -27,6 +27,14 @@ def make_move(state: GameState) -> MoveEnum:
     md = {m: min_dist(food, c) for m, c in choices.items()}
 
     return min(md.keys(), key=lambda m: md[m])
+
+
+def move_snake(snake: Battlesnake, move: MoveEnum):
+    head = snake.head
+    delta = move.delta()
+    new_head = Position(x=head.x + delta.x, y=head.y + delta.y)
+    snake.body.insert(0, new_head)
+    snake.body.pop()
 
 
 def evaluate(state: GameState):
