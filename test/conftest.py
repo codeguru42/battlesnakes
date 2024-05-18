@@ -28,7 +28,7 @@ def board(food, snakes, you):
 
 
 @pytest.fixture
-def you(body, metadata):
+def you(body, customization):
     head = body[0]
     return models.Battlesnake(
         id="1",
@@ -40,7 +40,7 @@ def you(body, metadata):
         length=len(body),
         shout="",
         squad="",
-        customizations=metadata,
+        customizations=customization,
     )
 
 
@@ -62,4 +62,13 @@ def metadata():
         head="default",
         tail="default",
         version="0.0.1-beta",
+    )
+
+
+@pytest.fixture
+def customization():
+    return models.Customization(
+        color="#B62B2B",
+        head="default",
+        tail="default",
     )
