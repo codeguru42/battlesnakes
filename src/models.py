@@ -53,6 +53,12 @@ class Position(BaseModel):
         return hash((self.x, self.y))
 
 
+class Customization(BaseModel):
+    color: str
+    head: str
+    tail: str
+
+
 class Battlesnake(BaseModel):
     id: str
     name: str
@@ -63,7 +69,7 @@ class Battlesnake(BaseModel):
     length: int
     shout: str
     squad: str
-    customizations: MetaData
+    customizations: Customization
 
 
 class Board(BaseModel):
