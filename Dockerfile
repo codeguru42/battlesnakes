@@ -4,7 +4,7 @@ RUN useradd -ms /bin/bash api
 USER api
 
 WORKDIR /api
-RUN pip install poetry==1.6.1
+RUN pip install poetry==1.8.3
 ENV PATH=/home/api/.local/bin:${PATH}
 COPY pyproject.toml poetry.lock ./
 RUN poetry install
