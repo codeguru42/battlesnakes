@@ -5,9 +5,9 @@ import models
 
 @pytest.fixture
 def game_state(
-    game: models.Game, turn: int, board: models.Board, you: models.Battlesnake
+    game: models.Game, turn: int, board: models.Board, snake: models.Battlesnake
 ):
-    return models.GameState(game=game, turn=turn, board=board, you=you)
+    return models.GameState(game=game, turn=turn, board=board, you=snake)
 
 
 @pytest.fixture
@@ -23,12 +23,17 @@ def ruleset(settings: models.RulesetSettings):
 
 
 @pytest.fixture
-def board(food, snakes, you):
+def board(food, snakes):
     return models.Board(height=10, width=10, food=food, hazards=[], snakes=snakes)
 
 
 @pytest.fixture
-def you(body, customization):
+def snakes(snake):
+    return [snake]
+
+
+@pytest.fixture
+def snake(body, customization):
     head = body[0]
     return models.Battlesnake(
         id="1",
