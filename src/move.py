@@ -28,10 +28,9 @@ def make_move(state: GameState) -> MoveEnum:
     choices = {}
     for m, d in deltas.items():
         new_pos = Position(x=head.x + d.x, y=head.y + d.y)
-        if (
-            is_in_bounds(new_pos, state.board.width, state.board.height)
-            and new_pos not in used
-        ):
+        if is_in_bounds(
+            new_pos, state.board.width, state.board.height
+        ) and not is_occupied(new_pos, used):
             choices[m] = new_pos
     md = {m: min_dist(food, c) for m, c in choices.items()}
 
@@ -40,6 +39,10 @@ def make_move(state: GameState) -> MoveEnum:
 
 def is_in_bounds(pos: Position, width: int, height: int) -> bool:
     return 0 <= pos.x < width and 0 <= pos.y < height
+
+
+def is_occupied(pos: Position, used: set[Position]) -> bool:
+    return pos in used
 
 
 def move_snake(snake: Battlesnake, move: MoveEnum) -> Position:
