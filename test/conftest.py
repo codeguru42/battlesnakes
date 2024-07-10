@@ -33,8 +33,12 @@ def snakes(snake):
 
 
 @pytest.fixture
-def snake(body, customization):
-    head = body[0]
+def head(body):
+    return body[0]
+
+
+@pytest.fixture
+def snake(body, head, customization):
     return models.Battlesnake(
         id="1",
         name="test_snake",
