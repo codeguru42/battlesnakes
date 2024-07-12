@@ -64,5 +64,12 @@ def other(other_body, other_head, customization):
     )
 
 
-def test_is_head_neighbor(snakes: list[models.Battlesnake], me: models.Battlesnake):
-    assert is_head_neighbor(snakes, me.head)
+@pytest.fixture
+def other_snakes(other):
+    return {other}
+
+
+def test_is_head_neighbor(
+    other_snakes: set[models.Battlesnake], me: models.Battlesnake
+):
+    assert is_head_neighbor(other_snakes, models.Position(x=3, y=2))

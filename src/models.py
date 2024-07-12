@@ -71,6 +71,9 @@ class Battlesnake(BaseModel):
     squad: str
     customizations: Customization
 
+    def __hash__(self):
+        return hash(id)
+
 
 class Board(BaseModel):
     height: int

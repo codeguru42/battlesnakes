@@ -26,12 +26,13 @@ def make_move(state: GameState) -> MoveEnum:
     used = set().union(*(s.body[:-1] for s in snakes))
     deltas = {MoveEnum(m): MoveEnum(m).delta() for m in MoveEnum}
     choices = {}
+    other_snakes = set(snakes) - {state.you}
     for m, d in deltas.items():
         new_pos = Position(x=head.x + d.x, y=head.y + d.y)
         if (
             is_in_bounds(new_pos, state.board.width, state.board.height)
             and not is_occupied(new_pos, used)
-            and not is_head_neighbor(snakes, new_pos)
+            and not is_head_neighbor(other_snakes, new_pos)
         ):
             choices[m] = new_pos
     md = {m: min_dist(food, c) for m, c in choices.items()}
@@ -82,5 +83,5 @@ def evaluate(state: GameState):
     return min_dist(food, head)
 
 
-def is_head_neighbor(snakes: list[Battlesnake], pos: Position) -> bool:
-    return any(dist(snake.head, pos) == 0 for snake in snakes)
+def is_head_neighbor(other_snakes: set[Battlesnake], pos: Position) -> bool:
+    return any(dist(snake.head, pos) == 1 for snake in other_snakes)
