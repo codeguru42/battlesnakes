@@ -32,7 +32,7 @@ def make_move(state: GameState) -> MoveEnum:
         if (
             is_in_bounds(new_pos, state.board.width, state.board.height)
             and not is_occupied(new_pos, used)
-            and not is_head_neighbor(other_snakes, new_pos)
+            and will_win_head_to_head(new_pos, state.you, other_snakes)
         ):
             choices[m] = new_pos
     md = {m: min_dist(food, c) for m, c in choices.items()}
@@ -83,5 +83,18 @@ def evaluate(state: GameState):
     return min_dist(food, head)
 
 
-def is_head_neighbor(other_snakes: set[Battlesnake], pos: Position) -> bool:
-    return any(dist(snake.head, pos) == 1 for snake in other_snakes)
+def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
+    return dist(snake.head, pos) == 1
+
+
+def is_longer(snake: Battlesnake, other: Battlesnake) -> bool:
+    return snake.length > other.length
+
+
+def will_win_head_to_head(
+    pos: Position, you: Battlesnake, other_snakes: set[Battlesnake]
+) -> bool:
+    return all(
+        not is_head_neighbor(other, pos) or is_longer(you, other)
+        for other in other_snakes
+    )
