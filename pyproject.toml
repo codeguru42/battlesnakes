@@ -10,6 +10,7 @@ package-mode = false
 python = "^3.11"
 fastapi = "^0.111.0"
 uvicorn = "^0.29.0"
+networkx = "^3.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.1"
