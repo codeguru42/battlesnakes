@@ -110,7 +110,7 @@ def neighbors(pos: Position) -> Iterator[Position]:
 
 
 def make_graph(state: GameState) -> nx.DiGraph:
-    graph = nx.DiGraph()
+    graph: nx.DiGraph = nx.DiGraph()
     used = set().union(*(s.body[:-1] for s in state.board.snakes))
     to_visit = [state.you.head]
     visited = set()
