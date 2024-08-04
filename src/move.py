@@ -1,5 +1,7 @@
 from collections.abc import Iterator
 
+import networkx as nx
+
 from models import GameState, MoveEnum, Position, Battlesnake
 
 
@@ -11,12 +13,12 @@ def dist(p1: Position, p2: Position) -> int:
     return abs(p1.x - p2.x) + abs(p1.y - p2.y)
 
 
-def all_dist(ps: list[Position], x: Position):
-    return [dist(x, p) for p in ps]
+def all_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
+    return [nx.shortest_path_length(graph, x, p) for p in ps]
 
 
-def min_dist(ps: list[Position], x: Position):
-    return min(all_dist(ps, x))
+def min_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
+    return min(all_dist(ps, x, graph))
 
 
 def make_move(state: GameState) -> MoveEnum:
@@ -35,7 +37,8 @@ def make_move(state: GameState) -> MoveEnum:
             and will_win_head_to_head(new_pos, state.you, other_snakes)
         ):
             choices[m] = new_pos
-    md = {m: min_dist(food, c) for m, c in choices.items()}
+    graph = make_graph(state)
+    md = {m: min_dist(food, c, graph) for m, c in choices.items()}
 
     return min(md.keys(), key=lambda m: md[m])
 
@@ -80,7 +83,8 @@ def all_moves(snake: Battlesnake) -> Iterator[Battlesnake]:
 def evaluate(state: GameState):
     head = state.you.head
     food = state.board.food
-    return min_dist(food, head)
+    graph = make_graph(state)
+    return min_dist(food, head, graph)
 
 
 def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
@@ -98,3 +102,26 @@ def will_win_head_to_head(
         not is_head_neighbor(other, pos) or is_longer(you, other)
         for other in other_snakes
     )
+
+
+def neighbors(pos: Position) -> Iterator[Position]:
+    for m in MoveEnum:
+        yield Position(x=pos.x + MoveEnum(m).delta().x, y=pos.y + MoveEnum(m).delta().y)
+
+
+def make_graph(state: GameState) -> nx.DiGraph:
+    graph = nx.DiGraph()
+    used = set().union(*(s.body[:-1] for s in state.board.snakes))
+    to_visit = [state.you.head]
+    visited = set()
+    while len(to_visit) > 0:
+        curr = to_visit.pop()
+        visited.add(curr)
+        for neighbor in neighbors(curr):
+            if is_in_bounds(
+                neighbor, state.board.width, state.board.height
+            ) and not is_occupied(neighbor, used):
+                graph.add_edge(curr, neighbor)
+                if neighbor not in visited:
+                    to_visit.append(neighbor)
+    return graph
