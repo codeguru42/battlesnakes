@@ -19,7 +19,7 @@ def all_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
         try:
             yield nx.shortest_path_length(graph, x, p)
         except nx.NetworkXNoPath:
-            pass
+            yield 1000000
 
 
 def min_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
