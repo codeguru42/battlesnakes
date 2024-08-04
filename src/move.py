@@ -107,7 +107,7 @@ def will_win_head_to_head(
     )
 
 
-def neighbors(pos: Position) -> Tuple[MoveEnum, Iterator[Position]]:
+def neighbors(pos: Position) -> Iterator[Tuple[MoveEnum, Position]]:
     for m in MoveEnum:
         yield m, Position(
             x=pos.x + MoveEnum(m).delta().x, y=pos.y + MoveEnum(m).delta().y
