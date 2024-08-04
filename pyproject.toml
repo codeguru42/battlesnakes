@@ -17,6 +17,7 @@ black = "^23.9.1"
 mypy = "^1.5.1"
 pre-commit = "^3.4.0"
 pytest = "^7.4.2"
+types-networkx = "^3.2.1.20240703"
 
 [build-system]
 requires = ["poetry-core"]
