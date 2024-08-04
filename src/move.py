@@ -1,5 +1,5 @@
-import sys
 from collections.abc import Iterator
+from typing import Tuple
 
 import networkx as nx
 
@@ -31,10 +31,9 @@ def make_move(state: GameState) -> MoveEnum:
     food = state.board.food
     snakes = state.board.snakes
     used = set().union(*(s.body[:-1] for s in snakes))
-    deltas = {MoveEnum(m): MoveEnum(m).delta() for m in MoveEnum}
     choices = {}
     other_snakes = set(snakes) - {state.you}
-    for new_pos in neighbors(head):
+    for m, new_pos in neighbors(head):
         if (
             is_in_bounds(new_pos, state.board.width, state.board.height)
             and not is_occupied(new_pos, used)
@@ -108,9 +107,11 @@ def will_win_head_to_head(
     )
 
 
-def neighbors(pos: Position) -> Iterator[Position]:
+def neighbors(pos: Position) -> Tuple[MoveEnum, Iterator[Position]]:
     for m in MoveEnum:
-        yield Position(x=pos.x + MoveEnum(m).delta().x, y=pos.y + MoveEnum(m).delta().y)
+        yield m, Position(
+            x=pos.x + MoveEnum(m).delta().x, y=pos.y + MoveEnum(m).delta().y
+        )
 
 
 def make_graph(state: GameState) -> nx.DiGraph:
@@ -121,7 +122,7 @@ def make_graph(state: GameState) -> nx.DiGraph:
     while len(to_visit) > 0:
         curr = to_visit.pop()
         visited.add(curr)
-        for neighbor in neighbors(curr):
+        for _, neighbor in neighbors(curr):
             if is_in_bounds(
                 neighbor, state.board.width, state.board.height
             ) and not is_occupied(neighbor, used):
