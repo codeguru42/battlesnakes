@@ -1,3 +1,4 @@
+import sys
 from collections.abc import Iterator
 
 import networkx as nx
@@ -14,7 +15,11 @@ def dist(p1: Position, p2: Position) -> int:
 
 
 def all_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
-    return [nx.shortest_path_length(graph, x, p) for p in ps]
+    for p in ps:
+        try:
+            yield nx.shortest_path_length(graph, x, p)
+        except nx.NetworkXNoPath:
+            pass
 
 
 def min_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
