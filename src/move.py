@@ -34,8 +34,7 @@ def make_move(state: GameState) -> MoveEnum:
     deltas = {MoveEnum(m): MoveEnum(m).delta() for m in MoveEnum}
     choices = {}
     other_snakes = set(snakes) - {state.you}
-    for m, d in deltas.items():
-        new_pos = Position(x=head.x + d.x, y=head.y + d.y)
+    for new_pos in neighbors(head):
         if (
             is_in_bounds(new_pos, state.board.width, state.board.height)
             and not is_occupied(new_pos, used)
