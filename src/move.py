@@ -3,6 +3,7 @@ from typing import Tuple
 
 import networkx as nx
 
+from evaluate import min_dist
 from models import GameState, MoveEnum, Position, Battlesnake
 
 
@@ -12,18 +13,6 @@ class InvalidMove(BaseException):
 
 def dist(p1: Position, p2: Position) -> int:
     return abs(p1.x - p2.x) + abs(p1.y - p2.y)
-
-
-def all_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
-    for p in ps:
-        try:
-            yield nx.shortest_path_length(graph, x, p)
-        except (nx.NetworkXNoPath, nx.NodeNotFound):
-            yield 1000000
-
-
-def min_dist(ps: list[Position], x: Position, graph: nx.DiGraph):
-    return min(all_dist(ps, x, graph))
 
 
 def make_move(state: GameState) -> MoveEnum:
@@ -81,13 +70,6 @@ def all_moves(snake: Battlesnake) -> Iterator[Battlesnake]:
             unmove_snake(snake, prev_tail)
         except InvalidMove:
             pass
-
-
-def evaluate(state: GameState):
-    head = state.you.head
-    food = state.board.food
-    graph = make_graph(state)
-    return min_dist(food, head, graph)
 
 
 def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
