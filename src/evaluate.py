@@ -16,7 +16,7 @@ def evaluate(move: MoveEnum, state: GameState) -> int:
     new_pos = head + move
     if is_occupied(new_pos, used):
         return -sys.maxsize
-    if is_head_to_head(new_pos, snakes):
+    if is_head_to_head(new_pos, other_snakes):
         if will_win_head_to_head(new_pos, state.you, other_snakes):
             return sys.maxsize
         return -sys.maxsize
