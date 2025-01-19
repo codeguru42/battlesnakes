@@ -3,7 +3,6 @@ from typing import Iterator, Tuple
 import networkx as nx
 
 from models import GameState, Position, MoveEnum, Battlesnake
-from move import is_head_neighbor, is_longer
 
 
 def evaluate(move: MoveEnum, state: GameState) -> int:
@@ -73,3 +72,15 @@ def will_win_head_to_head(
         not is_head_neighbor(other, pos) or is_longer(you, other)
         for other in other_snakes
     )
+
+
+def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
+    return dist(snake.head, pos) == 1
+
+
+def is_longer(snake: Battlesnake, other: Battlesnake) -> bool:
+    return snake.length > other.length
+
+
+def dist(p1: Position, p2: Position) -> int:
+    return abs(p1.x - p2.x) + abs(p1.y - p2.y)

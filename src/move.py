@@ -12,10 +12,6 @@ def make_move(state: GameState) -> MoveEnum:
     return max((MoveEnum(m) for m in MoveEnum), key=lambda m: evaluate(m, state))
 
 
-def dist(p1: Position, p2: Position) -> int:
-    return abs(p1.x - p2.x) + abs(p1.y - p2.y)
-
-
 def move_snake(snake: Battlesnake, move: MoveEnum) -> Position:
     head = snake.head
     delta = move.delta()
@@ -43,11 +39,3 @@ def all_moves(snake: Battlesnake) -> Iterator[Battlesnake]:
             unmove_snake(snake, prev_tail)
         except InvalidMove:
             pass
-
-
-def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
-    return dist(snake.head, pos) == 1
-
-
-def is_longer(snake: Battlesnake, other: Battlesnake) -> bool:
-    return snake.length > other.length

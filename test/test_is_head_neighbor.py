@@ -1,7 +1,7 @@
 import pytest
 
 import models
-from move import is_head_neighbor
+from evaluate import is_head_neighbor
 
 
 @pytest.fixture
