@@ -1,3 +1,4 @@
+import sys
 from typing import Iterator, Tuple
 
 import networkx as nx
@@ -13,10 +14,10 @@ def evaluate(move: MoveEnum, state: GameState) -> int:
     used = set().union(*(s.body[:-1] for s in snakes))
     graph = make_graph(state)
     new_pos = head + move
-    if is_occupied(new_pos, used) and not will_win_head_to_head(
-        new_pos, state.you, other_snakes
-    ):
-        return -1
+    if is_occupied(new_pos, used):
+        if will_win_head_to_head(new_pos, state.you, other_snakes):
+            return sys.maxsize
+        return -sys.maxsize
     return -min_dist(food, new_pos, graph)
 
 
