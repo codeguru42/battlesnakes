@@ -9,9 +9,14 @@ from move import is_head_neighbor, is_longer
 def evaluate(move: MoveEnum, state: GameState) -> int:
     head = state.you.head
     food = state.board.food
+    snakes = state.board.snakes
+    other_snakes = set(snakes) - {state.you}
+    used = set().union(*(s.body[:-1] for s in snakes))
     graph = make_graph(state)
     new_pos = head + move
-    if not will_win_head_to_head(graph, new_pos):
+    if is_occupied(new_pos, used) and not will_win_head_to_head(
+        new_pos, state.you, other_snakes
+    ):
         return -1
     return -min_dist(food, new_pos, graph)
 
