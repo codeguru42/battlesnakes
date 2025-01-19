@@ -52,6 +52,13 @@ class Position(BaseModel):
     def __hash__(self) -> int:
         return hash((self.x, self.y))
 
+    def __add__(self, other):
+        if isinstance(other, MoveEnum):
+            return Position(
+                x=self.x + MoveEnum(other).delta().x,
+                y=self.y + MoveEnum(other).delta().y,
+            )
+
 
 class Customization(BaseModel):
     color: str
