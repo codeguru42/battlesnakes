@@ -51,12 +51,3 @@ def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
 
 def is_longer(snake: Battlesnake, other: Battlesnake) -> bool:
     return snake.length > other.length
-
-
-def will_win_head_to_head(
-    pos: Position, you: Battlesnake, other_snakes: set[Battlesnake]
-) -> bool:
-    return all(
-        not is_head_neighbor(other, pos) or is_longer(you, other)
-        for other in other_snakes
-    )

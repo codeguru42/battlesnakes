@@ -2,7 +2,8 @@ from typing import Iterator, Tuple
 
 import networkx as nx
 
-from models import GameState, Position, MoveEnum
+from models import GameState, Position, MoveEnum, Battlesnake
+from move import is_head_neighbor, is_longer
 
 
 def evaluate(move: MoveEnum, state: GameState) -> int:
@@ -10,6 +11,8 @@ def evaluate(move: MoveEnum, state: GameState) -> int:
     food = state.board.food
     graph = make_graph(state)
     new_pos = head + move
+    if not will_win_head_to_head(graph, new_pos):
+        return -1
     return -min_dist(food, new_pos, graph)
 
 
@@ -56,3 +59,12 @@ def is_in_bounds(pos: Position, width: int, height: int) -> bool:
 
 def is_occupied(pos: Position, used: set[Position]) -> bool:
     return pos in used
+
+
+def will_win_head_to_head(
+    pos: Position, you: Battlesnake, other_snakes: set[Battlesnake]
+) -> bool:
+    return all(
+        not is_head_neighbor(other, pos) or is_longer(you, other)
+        for other in other_snakes
+    )
