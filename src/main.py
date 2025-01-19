@@ -25,7 +25,7 @@ async def start() -> Message:
 
 @app.post("/move")
 async def move(state: GameState) -> Move:
-    print(state)
+    print(repr(state))
     m = make_move(state)
     print(m)
     return Move(move=m)
