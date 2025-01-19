@@ -14,6 +14,8 @@ def evaluate(move: MoveEnum, state: GameState) -> int:
     used = set().union(*(s.body[:-1] for s in snakes))
     graph = make_graph(state)
     new_pos = head + move
+    if not is_in_bounds(new_pos, state.board.width, state.board.height):
+        return -sys.maxsize
     if is_occupied(new_pos, used):
         return -sys.maxsize
     if is_head_to_head(new_pos, other_snakes):
