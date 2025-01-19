@@ -75,9 +75,7 @@ def is_head_to_head(new_pos, snakes):
 def will_win_head_to_head(
     pos: Position, you: Battlesnake, other_snakes: set[Battlesnake]
 ) -> bool:
-    return all(
-        is_head_neighbor(other, pos) and is_longer(you, other) for other in other_snakes
-    )
+    return all(is_longer(you, other) for other in other_snakes)
 
 
 def is_head_neighbor(snake: Battlesnake, pos: Position) -> bool:
