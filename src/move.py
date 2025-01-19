@@ -1,3 +1,4 @@
+import random
 from collections.abc import Iterator
 
 from evaluate import evaluate
@@ -9,7 +10,9 @@ class InvalidMove(BaseException):
 
 
 def make_move(state: GameState) -> MoveEnum:
-    return max((MoveEnum(m) for m in MoveEnum), key=lambda m: evaluate(m, state))
+    scores = [(m, evaluate(MoveEnum(m), state)) for m in MoveEnum]
+    max_score = max(score for _, score in scores)
+    return random.choice([m for m, s in scores if s == max_score])
 
 
 def move_snake(snake: Battlesnake, move: MoveEnum) -> Position:
