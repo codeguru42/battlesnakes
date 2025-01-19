@@ -15,6 +15,8 @@ def evaluate(move: MoveEnum, state: GameState) -> int:
     graph = make_graph(state)
     new_pos = head + move
     if is_occupied(new_pos, used):
+        return -sys.maxsize
+    if is_head_to_head(new_pos, snakes):
         if will_win_head_to_head(new_pos, state.you, other_snakes):
             return sys.maxsize
         return -sys.maxsize
@@ -64,6 +66,10 @@ def is_in_bounds(pos: Position, width: int, height: int) -> bool:
 
 def is_occupied(pos: Position, used: set[Position]) -> bool:
     return pos in used
+
+
+def is_head_to_head(new_pos, snakes):
+    return any(is_head_neighbor(snake, new_pos) for snake in snakes)
 
 
 def will_win_head_to_head(
