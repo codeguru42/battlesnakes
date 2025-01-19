@@ -9,7 +9,7 @@ class InvalidMove(BaseException):
 
 
 def make_move(state: GameState) -> MoveEnum:
-    return min((MoveEnum(m) for m in MoveEnum), key=lambda m: evaluate(m, state))
+    return max((MoveEnum(m) for m in MoveEnum), key=lambda m: evaluate(m, state))
 
 
 def dist(p1: Position, p2: Position) -> int:
