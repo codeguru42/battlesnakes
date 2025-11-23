@@ -4,11 +4,11 @@ RUN useradd -ms /bin/bash api
 USER api
 
 WORKDIR /api
-RUN pip install poetry==2.0.1
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 ENV PATH=/home/api/.local/bin:${PATH}
-COPY pyproject.toml poetry.lock ./
-RUN poetry install
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
 COPY . ./
 ENV PYTHONPATH "${PYTHONPATH}:/api/src"
 
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
