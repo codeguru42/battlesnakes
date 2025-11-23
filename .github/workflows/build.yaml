@@ -15,14 +15,16 @@ jobs:
         with:
           python-version: 3.13
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
       - name: black
         uses: psf/black@stable
 
       - name: mypy
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          poetry install
-          poetry run mypy .
+          uv sync
+          uv run mypy .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
